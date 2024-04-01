@@ -33,3 +33,9 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+html,
+body {
+  height: 100%;
+  min-height: 100vh;
+}
