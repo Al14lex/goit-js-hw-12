@@ -10,11 +10,21 @@
   <body>
     <section class="main-sec">
       <form id="form" class="form">
-        <input type="text" id="query" placeholder="Search images..." />
-        <button type="submit">Search</button>
+        <input
+          class="input"
+          type="text"
+          id="query"
+          placeholder="Search images..."
+          required
+        />
+        <button type="submit" class="form-btn">Search</button>
       </form>
-      <span class="loader" id="loader" style="display: none"></span>
-      <div class="gallery-img"></div>
+
+      <div class="loader" id="loader" style="display: none"></div>
+
+      <ul class="gallery-img"></ul>
+
+      <button type="button" class="btn-load-more">Load more</button>
     </section>
 
     <script type="module" src="./main.js"></script>
