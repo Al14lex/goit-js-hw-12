@@ -16,6 +16,12 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
 /*---------------------LOADER-------------------*/
 .loader {
   display: block;

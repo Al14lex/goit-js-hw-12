@@ -7,52 +7,32 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 import { select } from '../main';
 
-export function renderImg(arr) {
-  function imgTemplate({
-    webformatURL,
-    largeImageURL,
-    tags,
-    likes,
-    views,
-    comments,
-    downloads,
-  }) {
-    return `<li class="gallery-item">
-            <a class="gallery-link" href="${webformatURL}">
-          <img loading="lazy" class="gallery-image" src="${largeImageURL}" alt="${tags}" />
-        </a>
-          <div class="image-info">
-      <ul class="infoBlock">
-      <li class="title">Likes</li>
-      <li class="info">${likes}</li>
-      </ul>
-      <ul class="infoBlock">
-      <li class="title">Views</li>
-      <li class="info">${views}</li>
-      </ul>
-      <ul class="infoBlock">
-      <li class="title">Comments</li>
-      <li class="info">${comments}</li>
-      </ul>
-      <ul class="infoBlock">
-      <li class="title">Downloads</li>
-      <li class="info">${downloads}</li>
-      </ul>
-      </div>
-    </li>`;
-  }
 
-  function imgsTemplate(arr) {
-    return arr.map(imgTemplate).join('');
+export function renderImg(images) {
+  const gallery = document.querySelector('.gallery-img');
+ 
+  if (images.length === 0) {
+    iziToast.info({
+      title: 'Info',
+      color: 'red',
+      position: 'topRight',
+      message: 'Sorry, there are no images matching your search query. Please try again!',
+    });
+    return;
   }
-
-  const markup = imgsTemplate(arr);
+    const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) =>
+  `<a href="${largeImageURL}" class="gallery-item" data-lightbox="gallery">
+    <img src="${webformatURL}" alt="${tags}" />
+    <div class="info">
+      <p><strong>Likes:</strong> ${likes}</p>
+      <p><strong>Views:</strong> ${views}</p>
+      <p><strong>Comments:</strong> ${comments}</p>
+      <p><strong>Downloads:</strong> ${downloads}</p>
+    </div>
+  </a>`).join('');
+    
   select.gallery.insertAdjacentHTML('beforeend', markup);
-  lightbox.refresh();
-}
 
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  captionDelay: 250,
-});
+    let lightbox = new SimpleLightbox('.gallery-item', { captionsData: 'alt', });
+    lightbox.refresh();
+}
